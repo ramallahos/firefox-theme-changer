@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=System;Settings;Security;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
+Comment=Firefox theme changer
+Exec=firefox-theme-changer
+Icon=firefox
+Name=RamallahOS Welcome
+GenericName=Firefox theme changer
+StartupNotify=true
+Terminal=false
+Type=Application
+Keywords=firefox;setup;theme;

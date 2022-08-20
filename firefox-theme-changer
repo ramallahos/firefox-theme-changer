@@ -1,0 +1,52 @@
+#!/bin/env bash
+
+grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
+"$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js" || \
+echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
+"$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js"
+
+grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
+"$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js" || \
+echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
+"$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js"
+
+[ -f "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/" ] || \
+mkdir "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
+
+[ -f "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/" ] || \
+mkdir "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
+
+cp *.svg "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
+cp *.svg "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
+
+librewolf="$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/userChrome.css"
+firefox="$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/userChrome.css"
+
+stdbuf -oL -eL yad  --width='400' --height='200' --borders=0 --center \
+					--title='Theme Switcher for Firefox & Forks' \
+					--text='Adjust userChrome.css according to your taste and restart Firefox.' \
+					--no-buttons --no-escape --image=firefox \
+					--form --columns=2 \
+                    --field "BottomTab:FBTN" "echo 1" \
+                    --field "Brave:FBTN" "echo 2" \
+                    --field "Chrome:FBTN" "echo 3" \
+                    --field "Compact:FBTN" "echo 4" \
+                    --field "Safari:FBTN" "echo 5" \
+                    --field "Shrinked:FBTN" "echo 6" \
+                    --field "Stylish:FBTN" "echo 7" \
+                    --field "Default:FBTN" "echo 8" \
+                    --print-uri 2>&1 \
+| while read -r line; do
+	case ${line##*/} in
+		1)  cat bottomtab.css > $librewolf && cat bottomtab.css > $firefox ;;
+        2)  cat brave.css     > $librewolf && cat brave.css     > $firefox ;;
+		3)  cat chrome.css    > $librewolf && cat chrome.css    > $firefox ;;
+		4)  cat compact.css   > $librewolf && cat compact.css   > $firefox ;;
+		5)  cat safari.css    > $librewolf && cat safari.css    > $firefox ;;
+		6)  cat shrinked.css  > $librewolf && cat shrinked.css  > $firefox ;;
+		7)  cat stylish.css   > $librewolf && cat stylish.css   > $firefox ;;
+        8)  rm                  $librewolf && rm                  $firefox ;;
+		*)  true ;;
+	esac ;
+done
+

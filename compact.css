@@ -1,0 +1,39 @@
+/* Title bar */
+.titlebar-buttonbox {
+    display: none !important;
+}
+
+.titlebar-spacer {
+    display: none !important;
+}
+
+/* Tab bar */
+#navigator-toolbox {
+    border: 0px !important;
+}
+
+#TabsToolbar {
+    margin-left: 35vw !important;
+}
+
+/* Nav bar*/
+#nav-bar {
+    background: transparent !important;
+    margin-top: -40px !important;
+    margin-right: 65vw !important;
+}
+
+#tracking-protection-icon-container {
+    display: none !important;
+}
+
+#urlbar-container {
+    min-width: 140px !important;
+}
+
+#urlbar {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+

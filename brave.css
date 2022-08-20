@@ -1,0 +1,668 @@
+/*
+╔══════════════════════════╦═════════════════════════════════════════════════════════════════════════════[─]═[□]═[×]═╗
+║ Name                     ║ Main Import                                                                             ║
+╠══════════════════════════╬═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Description              ║ Main Import For Brave-Fox, Allows User To Turn Stuff On & Off                           ║
+╠══════════════════════════╬═════════════════════════════════════════════════════════════════════════════════════════╣
+║ Sub-Folder               ║ userChrome.css & userContent.css                                                        ║
+╚══════════════════════════╩═════════════════════════════════════════════════════════════════════════════════════════╝
+*/ 
+
+
+/* Makes Close Tab Button Have Even Padding On Right */
+/* On By Default                                     */
+.tab-close-button {
+    margin-inline-end: 0px !important;
+}
+
+/* Adds Space To URL Bar Similar To That Of Brave */
+/* On By Default                                  */
+:root[sizemode="maximized"] #urlbar-container{
+    margin-right: 120px !important;
+    margin-left: 120px !important;
+}
+
+/* Terminate New Tab FavIcon */
+/* On By Default             */
+.tabbrowser-tab[label^="New Tab"] .tab-icon-image {
+    display: none;
+}
+
+/* Close Tab Icon Fade Animation */
+/* On By Default                 */
+.tab-close-button,
+.tab-icon-overlay:-moz-any([soundplaying], [muted], [activemedia-blocked]),
+.tab-icon-sound
+{
+	transition-property: fill-opacity, background-color !important;
+	transition-duration: .15s !important;
+	transition-timing-function: var(--ease-basic) !important;
+}
+
+/* Hide Enhanced Tracking Button */
+/* On By Default                 */
+#tracking-protection-icon-container {
+    display: none !important;
+}
+
+/* Always Show Bookmark Button */
+#star-button-box {
+    display: flex !important;
+}
+/* Change Forward Button */
+#forward-button{ list-style-image: url("Forward Button.svg") !important; }
+
+/* Change Back Button */
+#back-button{ list-style-image: url("Back Button.svg") !important; }
+
+/* Change Reload Button */
+#reload-button{ list-style-image: url("Reload.svg") !important; }
+
+/* Change Bookmark Icon */
+#star-button { list-style-image: url("Bookmark.svg") !important; }
+#star-button[starred] { list-style-image: url("bookmark Filled.svg") !important; }
+
+/* Change Menu Icon */
+#PanelUI-menu-button > stack:nth-child(1) > image:nth-child(1) {
+	list-style-image: url("Menu.svg") !important;
+	height: 12.5px;
+	align-self: center;
+}
+	/* Make Menu Icon Box Normal Sized */
+	#PanelUI-menu-button > stack:nth-child(1){
+	height: 26px !important;
+	width: 26px !important;
+}
+
+/* Change Plugins Icon */
+#nav-bar-overflow-button > image:nth-child(1),
+#add-ons-button > image:nth-child(1) {
+list-style-image: url("Plugins.svg") !important; }
+
+
+/* Make Reload Slightly Bigger */
+.reload-button.toolbarbutton-1 {
+    padding: 4.7px !important;
+}
+
+/* New Tab Button */
+#tabs-newtab-button,
+#new-tab-button {
+	list-style-image: url("New Tab.svg") !important;
+}
+
+/* Change Search Button */
+#urlbar[pageproxystate="invalid"] #identity-icon,
+.searchbar-search-icon,
+#PopupAutoCompleteRichResult .ac-type-icon[type="keyword"],
+#PopupAutoCompleteRichResult .ac-site-icon[type="searchengine"],
+#appMenu-find-button,
+#panelMenu_searchBookmarks {
+	list-style-image: url("Search.svg") !important;
+}
+
+/* Change Close Button */
+.tab-close-button {
+	list-style-image: url("Close Tab.svg") !important;
+	width: 16px !important;
+	height: 16px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Lock Icon */
+#identity-icon {
+  list-style-image: url("Lock.svg") !important;
+	width: 16px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Lock Icon In Security Dropdown */
+#identity-popup[connection^="secure"] .identity-popup-security-connection {
+  background-image: url("Lock.svg") !important;
+}
+
+/* Change Warning Icon */
+#identity-box[pageproxystate="valid"].notSecure #identity-icon,
+#identity-box[pageproxystate="valid"].mixedActiveContent #identity-icon,
+#identity-box[pageproxystate="valid"].httpsOnlyErrorPage #identity-icon,
+#identity-box[pageproxystate="valid"].weakCipher #identity-icon,
+#identity-box[pageproxystate="valid"].mixedDisplayContent #identity-icon,
+#identity-box[pageproxystate="valid"].mixedDisplayContentLoadedActiveBlocked #identity-icon,
+#identity-box[pageproxystate="valid"].certUserOverridden #identity-icon,
+#identity-box[pageproxystate="valid"].certErrorPage #identity-icon
+{
+  list-style-image: url("Warning.svg") !important;
+  width: 18px !important;
+  margin: 0 2px 0 1px !important;
+  padding: 2px !important;
+}
+
+/* Warning Icon In Security Dropdown */
+.identity-popup-security-connection {
+  background-image: url("Warning.svg") !important;
+	padding-left: 5px !important;
+}
+/* Padding Between Toolbar Icons (Back, Forward, Refresh) Inside Their Hitbox */
+:root{
+    --toolbarbutton-inner-padding:5px !important;
+}
+
+/* Fix Tiny Reader Mode Button */
+#reader-mode-button {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+/* Small URL Bar Height */
+:root,
+#urlbar-container,
+#search-container,
+#nav-bar-customization-target,
+#nav-bar {
+    --urlbar-min-height: 28px !important;
+}
+
+/* Make Toolbar Small */
+#urlbar-container,
+#search-container,
+#nav-bar-customization-target,
+#nav-bar {
+    --urlbar-toolbar-height: 20px !important;
+    --urlbar-container-height: 37px !important;
+}
+
+/* Remove Top And Bottom Padding Of URL Bar */
+#urlbar-container {
+    padding-top: 8px !important;
+    padding-bottom: 0px !important;
+}
+
+/* Make Back Button Closer To Left Side */
+#back-button {
+    margin-left: 5px !important;
+}
+
+/* Make All Toolbar Buttons Have Smaller Space Between Eachother */
+toolbar .toolbarbutton-1 {
+    margin-left: 2px !important;
+}
+
+/* Kill Refresh Animation */
+#nav-bar-customization-target >
+#stop-reload-button >
+:is(#reload-button, #stop-button) >
+.toolbarbutton-animatable-box {
+    display: none !important;
+}
+
+/* Make Stop Refresh Icon Visible */
+#stop-reload-button[animate] >
+#reload-button >
+.toolbarbutton-icon, #stop-reload-button[animate] >
+#reload-button[displaystop] + #stop-button >
+.toolbarbutton-icon {
+    fill: #eeeeee !important;
+}
+
+/* Make Site Information Dropdown Look Like Brave (Kinda) */
+/* Connection Not Secure Text Color */
+.identity-popup-connection-not-secure{
+    color: #F28B82 !important;
+}
+
+/* Connection Not Secure Text Color */
+.identity-popup-connection-secure{
+    color: #81C995 !important;
+}
+
+/* Make Not Secure Icon Have Separator Line */
+#identity-box[pageproxystate="valid"].notSecure::after {
+width: 1px;
+content: "";
+margin-left: 0px;
+display: -moz-box;
+background-image: linear-gradient(
+    transparent 20%,
+    color-mix(in srgb, currentColor 20%, transparent) 10%,
+    color-mix(in srgb, currentColor 20%, transparent) 85%,
+    transparent 20%
+);
+transition: opacity 300ms linear !important;
+}
+#identity-box:hover:after,
+#identity-box:hover:after {
+    opacity: 0 !important;
+}
+
+/* Make Not Secure Box Have Text */
+#identity-box[pageproxystate="valid"].notSecure ::after {
+    content: "Not secure";
+    font-size: 14px;
+    color: #9AA0A6;
+    /* Space Between Icon & Text */
+    text-indent: 5px;
+    /* Make Text Centred */
+    padding: 0 01px 2px 0;
+    display: block;
+    line-height: initial; /* New content takes up original line height */
+}
+
+/* Moves Bookmark Button To The Left Of URL Bar */
+#star-button-box {
+    display: block;
+    position: absolute;
+    left: -35px;
+    -moz-window-dragging: no-drag;
+}
+#urlbar-input-container { overflow: visible !important }
+/* Adds Space To URL Bar So Bookmark Doesnt Get Overlap */
+#urlbar-container { margin-left: 37px !important }
+
+/* Make Bookmark Button Centred Again */
+#star-button-box.urlbar-page-action {
+    height: 26px !important;
+    width: 26px !important;
+    padding: 5px !important;
+}
+
+/* URL Bar Fade Animation On Hover */
+#urlbar-input-container:hover {
+    background-color: #23252F !important;
+}
+#urlbar-input-container {
+    transition: background-color .3s ease-in;
+}
+
+/* Make Reload Button Smaller */
+#reload-button > .toolbarbutton-icon {
+    padding: 6.5px !important;
+}
+
+/* Make Bookmark Button Smaller */
+#star-button.urlbar-icon {
+    padding: 1px
+}
+
+/* Make Back / Forawrd Button Smaller */
+#back-button > .toolbarbutton-icon,
+#forward-button > .toolbarbutton-icon{
+    padding: 5.5px !important;
+}
+
+/* Fix Search Bookmarks Item In Settings Dropdown */
+#panelMenu_searchBookmarks > image:nth-child(1) {
+    margin-left: -10px !important;
+}
+#panelMenu_searchBookmarks {
+    height: 32px !important;
+}
+/* Make Tab Colour Same As ToolBar (If You Aren't Using The Brave-Fox Theme) */
+:root {
+    --lwt-selected-tab-background-color: var(--toolbar-bgcolor) !important;
+}
+
+/* Add Space Between New Tab Button & Last Tab */
+#tabs-newtab-button {
+    margin-left: 9px !important;
+}
+
+/* Remove Stupid Black Line Under ToolBar */
+:root {
+    --chrome-content-separator-color: none !important;
+}
+
+/* Set Value For Radius For Both Top Corners */
+#tabbrowser-tabs {
+    --user-tab-rounding: 5px;
+}
+
+/* Adjust Tab Corner Shape */
+.tab-background {
+    border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
+    margin-block: 1px 0 !important;
+}
+
+/* Makes New Tab Button Hitbox Not Take Up The Size Of Tab Bar */
+#TabsToolbar .toolbarbutton-1 > .toolbarbutton-icon,
+#TabsToolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+    --toolbarbutton-inner-padding: 2px;
+}
+
+/* Slaughter Text From Pinnend Tabs */
+.tab-text[pinned] {
+    display: none !important;
+}
+
+/* Make Tab Name Semi-Bold When Selected */
+.tab-text[selected] {
+    font-weight: 600 !important;
+}
+
+/* Adds Padding To The Top Of The Browser When Not Maximized */
+:root[sizemode="normal"] #tabbrowser-tabs {
+    padding-top: 8px;
+}
+
+/* Annihilate Padding Between Tabs */
+.tabbrowser-tab {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Changes Minimum Hight For Tabs [Do Not Touch] */
+#TabsToolbar,
+#tabbrowser-tabs {
+    --tab-min-height: 30px !important;
+}
+
+/* Adds's Brave "Like" Tab Dividers */
+/* Thanks u/It_Was_The_Other_Guy */
+/* Thanks Again For Animation Version */
+.tabbrowser-tab::after {
+width: 1px;
+content: "";
+margin-left: 0px;
+display: -moz-box;
+background-image: linear-gradient(
+    transparent 25%,
+    color-mix(in srgb, currentColor 20%, transparent) 10%,
+    color-mix(in srgb, currentColor 20%, transparent) 100%,
+    transparent 80%
+);
+transition: opacity 300ms linear !important;
+}
+
+.tabbrowser-tab[beforehovered]::after,
+.tabbrowser-tab[beforeselected-visible]::after {
+    opacity: 0;
+}
+
+/* Remove 1px Gap */
+.tabbrowser-tab:hover::after {
+    width: 0px;
+    transition: width 350ms linear !important;
+}
+
+/* Hides Separator On Selected Tabs */
+.tabbrowser-tab[selected]::after {
+    width: 0px;
+}
+
+/* Make Pinned Tabs Have One Size No Matter How Many Tabs Are Open */
+.tabbrowser-tab[pinned] {
+    max-width: 35px !important;
+    min-width: 35px !important;
+}
+
+/* Makes Tabs Have A Bigger Max Size To Match Brave's */
+.tabbrowser-tab[fadein]:not([pinned]) {
+    max-width: 245px !important;
+}
+
+
+/*
+╔════════════════════════════════════════════════[─]═[□]═[×]═╗
+║ Override Normal Density To Compact Density For Tabs.       ║
+║ I Have No Idea What What This Does, I Got It From          ║
+║ https://www.userchrome.org/                                ║
+╚════════════════════════════════════════════════════════════╝
+*/
+
+    /* W h a t   d o e s   t h i s   d o */
+    #scrollbutton-up,
+    #scrollbutton-down {
+        border-top-width: 0 !important;
+        border-bottom-width: 0 !important;
+    }
+
+    /*Idk What This Does But This Was The Note Given:
+    "Set A Max Height Based On Min-height Plus Margin-block: 1px 0"
+    Don't Touch The "9px" Tho, That's What's "Perfect" From What I Tested*/
+    #TabsToolbar,
+    #TabsToolbar > hbox,
+    #TabsToolbar-customization-target,
+    #tabbrowser-arrowscrollbox {
+        max-height: calc(var(--tab-min-height) + 9px) !important;
+    }
+
+/*══════════════════════════════════════════════════════════*/
+/* Kill Close Button. (Don't Worry, It Comes Back Later) */
+#TabsToolbar .close-icon {
+    display: none !important;
+}
+
+/* Always Show Close Icon - Selected Tabs */
+#TabsToolbar .tabbrowser-tab[selected]:not([pinned]) .close-icon {
+    display: inline-block !important;
+}
+
+/* Show Close Icon On Hover - Unfoucused Tabs */
+/* Thanks u/9hp71n */
+#TabsToolbar .tabbrowser-tab:not([pinned]):hover .close-icon {
+    display: inline-block !important;
+}
+
+/* Make Close Icon Hitbox Circular */
+.tab-close-button,
+.tab-icon-overlay:-moz-any([soundplaying], [muted], [activemedia-blocked]),
+.tab-icon-sound
+{
+	border-radius: 99px !important;
+	color: inherit !important;
+	-moz-context-properties: fill, fill-opacity !important;
+	transition-property: fill-opacity, background-color !important;
+	transition-duration: .15s !important;
+	transition-timing-function: var(--ease-basic) !important;
+	fill-opacity: 1 !important;
+	opacity: 1 !important;
+}
+/* Reduce Spacing Between Pinned And Regular Tabs */
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs]) > #tabbrowser-arrowscrollbox > .tabbrowser-tab[first-visible-unpinned-tab] {
+    margin-inline-start: initial !important;
+}
+
+/* Obliterate Space To Left Of Toolbar */
+.titlebar-spacer[type="pre-tabs"] {
+    display: none !important;
+}
+
+/* Adds Small Space Before First Tab To Match Top Padding */
+#tabbrowser-tabs {
+    margin-left: 4px !important;
+}
+
+/* Sets Right-Padding Of New Tab Button To 0 */
+#tabs-newtab-button,
+#TabsToolbar #new-tab-button {
+    padding-right: 0px !important;
+}
+
+/* Make Pinned Tabs Have Equal Favicon Padding */
+/* Fixed By Bred For Brave-Fox                 */
+:root:not([uidensity="compact"]) .tab-content[pinned] {
+    padding-top: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 9px !important;
+}
+:root[privatebrowsingmode="temporary"] {
+
+    /* Toolbar */
+    --toolbar-bgcolor: #322560 !important;
+
+    /* Behind Tabs */
+    --lwt-accent-color: #19162F !important;
+
+    /* Search Bar Colour */
+    --toolbar-field-background-color: #0B0724 !important;
+
+    /* Turns Tab Into Same Colour As Toolbar */
+    --lwt-selected-tab-background-color: var(--toolbar-bgcolor) !important;
+
+    /* What Happens When You Hover Over A Button */
+    --toolbarbutton-hover-background: rgba(255, 255, 255, 0.05) !important;
+
+    /* Click On A Button, This Colour Is What The Button Will Be */
+    --toolbarbutton-active-background: #4D4175 !important;
+
+    /* Click A Button With A Context Menu? This Is The Menu Colour */
+    --arrowpanel-background: #1D1935 !important;
+
+    /* Tool Bar Context Menu Outline */
+    --arrowpanel-border-color: #322560 !important;
+
+    /* Line Between Toobar And Site */
+    --chrome-content-separator-color: none !important;
+
+    /* Colour Of The Expanded Address Bar */
+    --toolbar-field-focus-background-color:var(--toolbar-field-background-color) !important;
+
+    /* Hovering Over The Autocomplete Items Colour */
+    --autocomplete-popup-hover-background: #1D1935 !important;
+
+    /* Clicking On Said Autocomplete Item Colour */
+    --autocomplete-popup-highlight-background: rgba(65, 48, 117, 0.5) !important;
+}
+
+/* Right Click Menu */
+:root[privatebrowsingmode="temporary"] menupopup {
+    --menuitem-hover-background-color: #413D54 !important;
+    --menu-background-color: #1D1935 !important;
+    --menu-color: #eeeeee !important;
+    --menuitem-disabled-hover-background-color: #ffffff00 !important;
+    --menu-disabled-color: #ffffff50 !important;
+    --menu-border-color: #322560 !important;
+}
+
+/* Search Bar Popout Outline Killer */
+#urlbar[open] > #urlbar-background {
+    border-color: #ffffff00 !important;
+}
+
+/* No More Icon Incognito Icon */
+.accessibility-indicator, .private-browsing-indicator{
+    display: none !important;
+}
+
+/* URL Bar Fade Animation On Hover */
+/* Thanks u/It_Was_The_Other_Guy   */
+:root[privatebrowsingmode="temporary"] #urlbar-input-container:hover {
+    background-color: #1F1B36 !important;
+}
+/* Makes Private New Tab Look More Like Brave */
+/* Thanks u/It_Was_The_Other_Guy */
+html.private{ background-image: linear-gradient(rgb(56, 25, 128), rgb(12, 4, 30)) }
+
+/* Removes Search Bar From Private Windows */
+.search-handoff-button,
+.search-handoff-button:active,
+.search-handoff-button:enabled:hover:active,
+.search-inner-wrapper {
+    display: none !important;
+}
+
+/* Removes Top Padding From Promotional VPN Message */
+.promo.below-search {
+    padding: 0px 22px 0 !important;
+}
+
+/* Reduce Space Between Firefox Logo & Safety Message */
+.logo-and-wordmark {
+    margin-bottom: 20px !important;
+}
+
+/* Change Promotional VPN Header */
+/* Butcher Original Description Text*/
+.promo-content h1 {
+    text-indent: -9999px;
+    line-height: 0; /* Collapse the original line */
+}
+/* Custom Header Text*/
+.promo-content h1::after {
+    content: "Private Browsing Isn't As Private As You Might Think";
+    text-indent: 0;
+    display: block;
+    line-height: initial; /* New content takes up original line height */
+}
+
+/* Change Promotional VPN Details */
+/* Massacre Original Description Text*/
+.promo-content p {
+    text-indent: -9999px;
+    line-height: 0; /* Collapse the original line */
+}
+/* Custom Description Text*/
+.promo-content p::after {
+    content: "Firefox doesn't remember what you do in a Private Window. Sites you visit won't show up in your history, and cookies vanish when you're done. Private Windows don't make you completely anonymous online and and a VPN is recommended.";
+    text-indent: 0;
+    display: block;
+    line-height: initial; /* New content takes up original line height */
+}
+
+/* Reduce Spacing Between Text & Heading */
+.promo-content p {
+    line-height: 0em !important;
+    margin-top: -3px !important;
+}
+
+/* Terminate VPN Button */
+.promo-cta a {
+    display: none !important;
+}
+
+/* Removes Old Warning Message */
+.info {
+    display: none !important;
+}
+/* Makes Hovering Over Inactive Tabs Have A Small Fade In */
+/* Thanks u/poorman3333 */
+.tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected="true"]) {
+    transition: 300ms !important;
+}
+
+/* Toolbar Button Fade In Animations */
+/* Thanks u/9hp71n */
+
+/* Shield Icon */
+#tracking-protection-icon-container:not([disabled="true"], [checked], [open], :active),
+
+/* Lock Icon */
+#identity-icon-box:not([disabled="true"], [checked], [open], :active),
+
+/* Extentions & Menu Button */
+toolbar .toolbarbutton-badge-stack:not([disabled="true"], [checked], [open], :active),
+
+/* Back / Forward / Refresh */
+toolbar .toolbarbutton-1:not([disabled="true"], [checked], [open], :active) > .toolbarbutton-icon,
+
+/* Star / Bookmark Button */
+.urlbar-page-action, #urlbar-go-button, .search-go-button:not([disabled="true"], [checked], [open], :active) {
+    transition:background linear 250ms;
+}
+
+/* Pin / Un-Pin Tab Animation    */
+/* Thanks u/It_Was_The_Other_Guy */
+.tabbrowser-tab[fadein]{transition: min-width 250ms linear, max-width 250ms linear !important;}
+
+/* No Overflow Version */
+/* Mimimum Size For Hovered Non-Selected Tabs */
+.tabbrowser-tab:not([pinned]):not([selected]):hover[fadein]{
+    max-width: 245px !important;
+}
+
+/* Make Selected Tabs Have A Minimum Size */
+.tabbrowser-tab[selected][fadein]:not([pinned]) {
+    min-width: 50px !important;
+}
+
+/* Tab Overflow          */
+/* On By Default         */
+/* Thanks u/-SZCMAWO     */
+.tabbrowser-tab {
+    min-width: 0px !important;
+}
+.tab-content {
+    overflow: hidden !important;
+}
