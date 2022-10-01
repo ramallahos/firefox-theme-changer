@@ -1,25 +1,30 @@
 #!/bin/env bash
 
-cd /usr/bin/firefox-theme-changer-resources/
+cd /usr/share/resources/firefox-theme-changer/
 
-grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
-"$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js" || \
-echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
-"$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js"
+if [ -z /usr/share/resources/firefox-theme-changer/setupdone ]
+then
+    grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
+    "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js" || \
+    echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
+    "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js"
 
-grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
-"$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js" || \
-echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
-"$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js"
+    grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
+    "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js" || \
+    echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> \
+    "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/prefs.js"
 
-[ -f "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/" ] || \
-mkdir "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
+    [ -f "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/" ] || \
+    mkdir "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
 
-[ -f "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/" ] || \
-mkdir "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
+    [ -f "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/" ] || \
+    mkdir "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
 
-cp *.svg "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
-cp *.svg "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
+    cp *.svg "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
+    cp *.svg "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
+
+    touch /usr/share/resources/firefox-theme-changer/setupdone
+fi
 
 librewolf="$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/userChrome.css"
 firefox="$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/userChrome.css"
@@ -28,27 +33,52 @@ stdbuf -oL -eL yad  --width='400' --height='200' --borders=0 --center \
 					--title='Theme Switcher for Firefox & Forks' \
 					--text='Adjust userChrome.css according to your taste and restart Firefox.' \
 					--no-buttons --no-escape --image=firefox \
-					--form --columns=2 \
-                    --field "BottomTab:FBTN" "echo 1" \
-                    --field "Brave:FBTN" "echo 2" \
-                    --field "Chrome:FBTN" "echo 3" \
-                    --field "Compact:FBTN" "echo 4" \
-                    --field "Safari:FBTN" "echo 5" \
-                    --field "Shrinked:FBTN" "echo 6" \
-                    --field "Stylish:FBTN" "echo 7" \
-                    --field "Default:FBTN" "echo 8" \
-                    --print-uri 2>&1 \
+					--form --columns=1 \
+                    --field "Custom:FBTN" "echo 1" \
+                    --field "Random Firefox:FBTN" "echo 2" \
+                    --field "Random Librewolf:FBTN" "echo 3" \
 | while read -r line; do
 	case ${line##*/} in
-		1)  cat bottomtab.css > $librewolf && cat bottomtab.css > $firefox ;;
-        2)  cat brave.css     > $librewolf && cat brave.css     > $firefox ;;
-		3)  cat chrome.css    > $librewolf && cat chrome.css    > $firefox ;;
-		4)  cat compact.css   > $librewolf && cat compact.css   > $firefox ;;
-		5)  cat safari.css    > $librewolf && cat safari.css    > $firefox ;;
-		6)  cat shrinked.css  > $librewolf && cat shrinked.css  > $firefox ;;
-		7)  cat stylish.css   > $librewolf && cat stylish.css   > $firefox ;;
-        8)  rm                  $librewolf && rm                  $firefox ;;
+		1)  input=$(yad --title="Theme Switcher for Firefox & Forks" \
+            --text="Adjust userChrome.css according to your taste and restart Firefox." \
+            --image=firefox --borders=0 --center \
+            --form --field="Theme:CB" "bottomtab!brave!chrome!compact!safari!shrinked!stylish!default"\
+                   --field="Firefox:CHK" TRUE\
+            --form --field="Theme:CB" "bottomtab!brave!chrome!compact!safari!shrinked!stylish!default"\
+                   --field="Librewolf:CHK" FALSE)
+
+            echo $input
+
+            themef=$( echo $input | awk -F "|" '{ print $1 }' )
+            echo $themef
+            themel=$( echo $input | awk -F "|" '{ print $3 }' )
+            echo $themel
+            firefoxt=$( echo $input | awk -F "|" '{ print $2 }' )
+            echo $firefoxt
+            librewolft=$( echo $input | awk -F "|" '{ print $4 }' )
+            echo $librewolft
+
+            if [[ "$firefoxt" == "TRUE" && "$librewolft" != "TRUE" ]];
+            then
+                cat ${themef}.css > $firefox
+            elif [[ "$firefoxt" != "TRUE" && "$librewolft" == "TRUE" ]];
+            then
+                cat ${themel}.css > $librewolf
+            elif [[ "$firefoxt" == "TRUE" && "$librewolft" == "TRUE" ]];
+            then
+                cat ${themef}.css > $firefox && cat ${themel}.css > $librewolf
+            fi   ;;
+
+        2)  themesrf=('bottomtab' 'brave' 'chrome' 'compact' 'safari' 'shrinked' 'stylish' 'default')
+            themerf="${themesrf[$(( $RANDOM % 7 ))]}"
+            echo "$themerf f"
+            cat ${themerf}.css    > $firefox ;;
+
+        3)  themesrl=('bottomtab' 'brave' 'chrome' 'compact' 'safari' 'shrinked' 'stylish' 'default')
+            themerl="${themesrl[$(( $RANDOM % 7 ))]}"
+            echo "$themerl l"
+            cat ${themerl}.css    > $librewolf ;;
+
 		*)  true ;;
 	esac ;
 done
-
