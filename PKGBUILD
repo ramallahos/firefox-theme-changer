@@ -13,11 +13,11 @@ sha256sums=('SKIP')
 
 package() {
     cd "$pkgname"
-    mkdir -p "$pkgdir/usr/bin/resources/$pkgname/"
-    install -Dm755 "$pkgname" "$pkgdir/usr/bin/resources/$pkgname/${pkgname}.sh"
+    mkdir -p "$pkgdir/usr/share/resources/$pkgname/"
+    install -Dm755 "$pkgname" "$pkgdir/usr/share/resources/$pkgname/${pkgname}.sh"
     install -Dm755 executable "$pkgdir/usr/bin/$pkgname"
-    cp -f *.svg "$pkgdir/usr/bin/resources/$pkgname/"
-    cp -f *.css "$pkgdir/usr/bin/resources/$pkgname/"
+    cp -f *.svg "$pkgdir/usr/share/resources/$pkgname/"
+    cp -f *.css "$pkgdir/usr/share/resources/$pkgname/"
     install -Dm755 "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
 
