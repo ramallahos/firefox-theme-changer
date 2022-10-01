@@ -13,7 +13,7 @@ sha256sums=('SKIP')
 
 package() {
     cd "$pkgname"
-    install -d "$pkgdir/usr/bin/resources/$pkgname"
+    mkdir -p "$pkgdir/usr/bin/resources/$pkgname/"
     install -Dm755 "$pkgname" "$pkgdir/usr/bin/resources/$pkgname/${pkgname}.sh"
     install -Dm755 executable "$pkgdir/usr/bin/$pkgname"
     cp -f *.svg "$pkgdir/usr/bin/resources/$pkgname/"
