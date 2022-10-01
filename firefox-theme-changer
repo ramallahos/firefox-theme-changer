@@ -2,7 +2,7 @@
 
 cd /usr/share/resources/firefox-theme-changer/
 
-if [ -z /usr/share/resources/firefox-theme-changer/setupdone ]
+if [ ! -f /usr/share/resources/firefox-theme-changer/setupdone ]
 then
     grep 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' \
     "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/prefs.js" || \
@@ -23,7 +23,7 @@ then
     cp *.svg "$HOME/.mozilla/firefox/$(basename ~/.mozilla/firefox/*.default-release/)/chrome/"
     cp *.svg "$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/"
 
-    touch /usr/share/resources/firefox-theme-changer/setupdone
+    pkexec touch /usr/share/resources/firefox-theme-changer/setupdone
 fi
 
 librewolf="$HOME/.librewolf/$(basename ~/.librewolf/*.default-release/)/chrome/userChrome.css"
