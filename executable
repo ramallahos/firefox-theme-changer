@@ -1,2 +1,2 @@
 #!/bin/env bash
-bash /usr/share/resources/firefox-theme-changer/firefox-theme-changer
+bash /usr/share/resources/firefox-theme-changer/firefox-theme-changer.sh
